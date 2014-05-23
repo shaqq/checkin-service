@@ -10,6 +10,7 @@ gem 'shotgun'
 gem 'napa'
 gem 'roar'
 gem 'grape-swagger'
+gem 'bcrypt', '~>3.1.7'
 
 group :development,:test do
   gem 'pry'
