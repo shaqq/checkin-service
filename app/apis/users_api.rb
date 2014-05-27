@@ -10,10 +10,10 @@ class UsersApi < Grape::API
 
   desc 'Create a user'
   params do
-    requires :name, type: String, desc: 'Name of the User'
-    requires :email, type: String, desc: 'Email of the User'
-    requires :password, type: String, desc: 'Password of the User'
-    requires :password_confirmation, type: String, desc: 'Password Confirmation of the User'
+    requires :name, type: String, desc: 'Name of the user'
+    requires :email, type: String, desc: 'Email of the user'
+    requires :password, type: String, desc: 'Password of the user'
+    requires :password_confirmation, type: String, desc: 'Password confirmation of the user'
   end
 
   post do
