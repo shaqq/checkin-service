@@ -8,8 +8,9 @@ class BusinessesApi < Grape::API
     represent businesses, with: BusinessRepresenter
   end
 
-  desc 'Create an business'
+  desc 'Create a business'
   params do
+    requires :name, type: String, desc: 'Name of the business'
   end
 
   post do
@@ -22,20 +23,28 @@ class BusinessesApi < Grape::API
     requires :id, desc: 'ID of the business'
   end
   route_param :id do
-    desc 'Get an business'
+    desc 'Get a business'
     get do
       business = Business.find(params[:id])
       represent business, with: BusinessRepresenter
     end
 
-    desc 'Update an business'
+    desc 'Update a business'
     params do
+      optional :name, type: String, desc: 'Name of the business'
     end
     put do
       # fetch business record and update attributes.  exceptions caught in app.rb
       business = Business.find(params[:id])
       business.update_attributes!(declared(params, include_missing: false))
       represent business, with: BusinessRepresenter
+    end
+
+    desc 'Get a list of checkins for a business'
+    get :checkins do
+      business = Business.find(params[:id])
+      checkins = Checkin.filter(business: business)
+      represent checkins, with: CheckinRepresenter
     end
   end
 end
