@@ -2,6 +2,8 @@ class CheckinsApi < Grape::API
   desc 'Get a list of checkins'
   params do
     optional :ids, type: String, desc: 'comma separated checkin ids'
+    optional :user_id, type: String, desc: 'User ID to filter with'
+    optional :business_id, type: String, desc: 'Business ID to filter with'
   end
   get do
     checkins = Checkin.filter(declared(params, include_missing: false))

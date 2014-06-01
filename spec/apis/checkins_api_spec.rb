@@ -18,9 +18,33 @@ describe CheckinsApi do
       expect(last_response.status).to be 200
       expect(last_response.body).to eq({
         data: [
-          CheckinRepresenter.new(checkin),
+          CheckinRepresenter.new(checkin)
         ]
       }.to_json)
+    end
+
+    it 'lists all checkins, filtered by user' do
+      some_other_user = FactoryGirl.create(:user)
+      some_other_checkin = Checkin.create(user: some_other_user, business: business)
+      checkin = Checkin.create(user: user, business: business)
+
+      get '/checkins', user_id: user.id
+
+      expect(last_response.status).to be 200
+      expect(last_response.body).not_to include CheckinRepresenter.new(some_other_checkin).to_json
+      expect(last_response.body).to include CheckinRepresenter.new(checkin).to_json
+    end
+
+    it 'lists all checkins, filtered by business' do
+      some_other_business = FactoryGirl.create(:business)
+      some_other_checkin = Checkin.create(user: user, business: some_other_business)
+      checkin = Checkin.create(user: user, business: business)
+
+      get '/checkins', business_id: business.id
+      
+      expect(last_response.status).to be 200
+      expect(last_response.body).not_to include CheckinRepresenter.new(some_other_checkin).to_json
+      expect(last_response.body).to include CheckinRepresenter.new(checkin).to_json
     end
 
   end
