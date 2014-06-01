@@ -8,8 +8,10 @@ class CheckinsApi < Grape::API
     represent checkins, with: CheckinRepresenter
   end
 
-  desc 'Create an checkin'
+  desc 'Create a checkin'
   params do
+    requires :business_id, desc: 'ID of the business being checked into'
+    requires :user_id, desc: 'ID of the user checking in'
   end
 
   post do
@@ -22,20 +24,11 @@ class CheckinsApi < Grape::API
     requires :id, desc: 'ID of the checkin'
   end
   route_param :id do
-    desc 'Get an checkin'
+    desc 'Get a checkin'
     get do
       checkin = Checkin.find(params[:id])
       represent checkin, with: CheckinRepresenter
     end
 
-    desc 'Update an checkin'
-    params do
-    end
-    put do
-      # fetch checkin record and update attributes.  exceptions caught in app.rb
-      checkin = Checkin.find(params[:id])
-      checkin.update_attributes!(declared(params, include_missing: false))
-      represent checkin, with: CheckinRepresenter
-    end
   end
 end
