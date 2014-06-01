@@ -46,5 +46,16 @@ class BusinessesApi < Grape::API
       checkins = Checkin.filter(business: business)
       represent checkins, with: CheckinRepresenter
     end
+
+    desc 'Get a list of users that checked into the business'
+    get :customers do
+      business = Business.find(params[:id])
+      if params[:unique] then
+        users = business.users.uniq
+      else
+        users = business.users
+      end
+      represent users, with: UserRepresenter
+    end
   end
 end

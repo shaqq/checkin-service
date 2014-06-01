@@ -101,4 +101,47 @@ describe BusinessesApi do
 
   end
 
+  describe 'GET /businesses/:id/customers' do
+
+    it 'lists users that have checked into the business' do
+      business = FactoryGirl.create(:business)
+      user_1 = FactoryGirl.create(:user)
+      user_2 = FactoryGirl.create(:user)
+      checkin_1 = Checkin.create(user: user_1, business: business)
+      checkin_2 = Checkin.create(user: user_2, business: business)
+      checkin_3 = Checkin.create(user: user_2, business: business)
+
+      get "/businesses/#{business.id}/customers"
+
+      expect(last_response.status).to be 200
+      expect(last_response.body).to eq({
+        data: [
+          UserRepresenter.new(user_1),
+          UserRepresenter.new(user_2),
+          UserRepresenter.new(user_2)
+        ]
+      }.to_json)
+    end
+
+    it 'can optionally list unique users' do
+      business = FactoryGirl.create(:business)
+      user_1 = FactoryGirl.create(:user)
+      user_2 = FactoryGirl.create(:user)
+      checkin_1 = Checkin.create(user: user_1, business: business)
+      checkin_2 = Checkin.create(user: user_2, business: business)
+      checkin_3 = Checkin.create(user: user_2, business: business)
+
+      get "/businesses/#{business.id}/customers", unique: true
+
+      expect(last_response.status).to be 200
+      expect(last_response.body).to eq({
+        data: [
+          UserRepresenter.new(user_1),
+          UserRepresenter.new(user_2)
+        ]
+      }.to_json)
+    end
+
+  end
+
 end
