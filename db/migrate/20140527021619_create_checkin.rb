@@ -3,7 +3,6 @@ class CreateCheckin < ActiveRecord::Migration
     create_table :checkins do |t|
       t.references :user
       t.references :business
-
       t.timestamps
     end
   end
