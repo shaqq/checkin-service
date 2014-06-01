@@ -34,12 +34,21 @@ class UsersApi < Grape::API
 
     desc 'Update a user'
     params do
+      optional :name, type: String, desc: 'Name of the user'
+      optional :email, type: String, desc: 'Email of the user'
     end
     put do
       # fetch user record and update attributes.  exceptions caught in app.rb
       user = User.find(params[:id])
       user.update_attributes!(declared(params, include_missing: false))
       represent user, with: UserRepresenter
+    end
+
+    desc 'Get a list of checkins for a user'
+    get :checkins do
+      user = User.find(params[:id])
+      checkins = Checkin.filter(user: user)
+      represent checkins, with: CheckinRepresenter
     end
   end
 end
