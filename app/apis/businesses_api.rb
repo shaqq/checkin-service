@@ -50,11 +50,8 @@ class BusinessesApi < Grape::API
     desc 'Get a list of users that checked into the business'
     get :customers do
       business = Business.find(params[:id])
-      if params[:unique] then
-        users = business.users.uniq
-      else
-        users = business.users
-      end
+      users = business.users
+      users = users.uniq if params[:unique]
       represent users, with: UserRepresenter
     end
   end
