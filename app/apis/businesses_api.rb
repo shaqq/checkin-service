@@ -43,8 +43,7 @@ class BusinessesApi < Grape::API
     desc 'Get a list of checkins for a business'
     get :checkins do
       business = Business.find(params[:id])
-      checkins = Checkin.filter(business: business)
-      represent checkins, with: CheckinRepresenter
+      represent business.checkins, with: CheckinRepresenter
     end
 
     desc 'Get a list of users that checked into the business'
