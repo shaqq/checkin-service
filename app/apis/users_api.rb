@@ -47,7 +47,8 @@ class UsersApi < Grape::API
     desc 'Get a list of checkins for a user'
     get :checkins do
       user = User.find(params[:id])
-      represent user.checkins, with: CheckinRepresenter
+      checkins = Checkin.filter(user: user)
+      represent checkins, with: CheckinRepresenter
     end
   end
 end

@@ -12,6 +12,10 @@ class Checkin < ActiveRecord::Base
     where("created_at > ?", time)
   end
 
+  def self.until(time)
+    where("created_at <= ?", time)
+  end
+
   private
 
     def no_recent_checkins
