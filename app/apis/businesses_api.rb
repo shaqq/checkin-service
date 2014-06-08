@@ -50,7 +50,7 @@ class BusinessesApi < Grape::API
       checkins = Checkin.filter(business: business)
       if params[:start_date] && params[:end_date]
         checkins = checkins.where(
-          :created_at => params[:start_date]..params[:end_date]
+          created_at: params[:start_date]..params[:end_date]
         )
       end
       represent checkins, with: CheckinRepresenter

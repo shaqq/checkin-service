@@ -106,11 +106,13 @@ describe BusinessesApi do
       checkin_1 = Checkin.create(user: user_1, business: business)
       checkin_2 = Checkin.create(user: user_2, business: business)
       Timecop.freeze(business.checkin_lock_time + 1.hour) do
-        checkin_3 = Checkin.create(user: user_2, business: business)
+        Checkin.create(user: user_2, business: business)
 
-        get "/businesses/#{business.id}/checkins",
+        get(
+          "/businesses/#{business.id}/checkins",
           start_date: checkin_1.created_at - 1.day,
           end_date: checkin_2.created_at + 1.minute
+        )
 
         expect(last_response.status).to be 200
         expect(last_response.body).to eq({
