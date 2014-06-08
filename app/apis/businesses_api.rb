@@ -41,9 +41,18 @@ class BusinessesApi < Grape::API
     end
 
     desc 'Get a list of checkins for a business'
+    params do
+      optional :start_date, type: DateTime, desc: 'Start date'
+      optional :end_date, type: DateTime, desc: 'End date'
+    end
     get :checkins do
       business = Business.find(params[:id])
       checkins = Checkin.filter(business: business)
+      if params[:start_date] && params[:end_date]
+        checkins = checkins.where(
+          :created_at => params[:start_date]..params[:end_date]
+        )
+      end
       represent checkins, with: CheckinRepresenter
     end
 
