@@ -9,5 +9,4 @@ class Business < ActiveRecord::Base
   def defaults
     self.checkin_lock_time ||= 60 if self.has_attribute? :checkin_lock_time
   end
-
 end

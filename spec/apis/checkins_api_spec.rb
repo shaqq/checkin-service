@@ -41,7 +41,7 @@ describe CheckinsApi do
       checkin = Checkin.create(user: user, business: business)
 
       get '/checkins', business_id: business.id
-      
+
       expect(last_response.status).to be 200
       expect(last_response.body).not_to include CheckinRepresenter.new(some_other_checkin).to_json
       expect(last_response.body).to include CheckinRepresenter.new(checkin).to_json

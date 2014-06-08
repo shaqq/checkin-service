@@ -9,27 +9,24 @@ class Checkin < ActiveRecord::Base
   validate :no_recent_checkins, on: :create
 
   def self.since(time)
-    where("created_at > ?", time)
+    where('created_at > ?', time)
   end
 
   def self.until(time)
-    where("created_at <= ?", time)
+    where('created_at <= ?', time)
   end
 
-  private
+  def no_recent_checkins
+    return unless user && business
 
-    def no_recent_checkins
-      return unless user && business
+    recent_checkins = Checkin.filter(
+      user: user,
+      business: business
+    ).since(business.checkin_lock_time.ago)
 
-      recent_checkins = Checkin.filter(
-        user: user,
-        business: business
-      ).since(business.checkin_lock_time.ago)
+    return unless recent_checkins.any?
+    errors.add(:created_at, 'User is checking in too quickly')
+  end
 
-      if recent_checkins.any?
-        errors.add(:created_at, 'User is checking in too quickly')
-      end
-
-    end
-
+  private :no_recent_checkins
 end

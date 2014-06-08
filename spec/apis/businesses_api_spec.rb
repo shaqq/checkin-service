@@ -107,11 +107,11 @@ describe BusinessesApi do
       business = FactoryGirl.create(:business)
       user_1 = FactoryGirl.create(:user)
       user_2 = FactoryGirl.create(:user)
-      checkin_1 = Checkin.create(user: user_1, business: business)
-      checkin_2 = Checkin.create(user: user_2, business: business)
+      Checkin.create(user: user_1, business: business)
+      Checkin.create(user: user_2, business: business)
       Timecop.freeze(business.checkin_lock_time + 1.hour) do
-        checkin_3 = Checkin.create(user: user_2, business: business)
-  
+        Checkin.create(user: user_2, business: business)
+
         get "/businesses/#{business.id}/customers"
 
         expect(last_response.status).to be 200
@@ -130,10 +130,10 @@ describe BusinessesApi do
       business = FactoryGirl.create(:business)
       user_1 = FactoryGirl.create(:user)
       user_2 = FactoryGirl.create(:user)
-      checkin_1 = Checkin.create(user: user_1, business: business)
-      checkin_2 = Checkin.create(user: user_2, business: business)
+      Checkin.create(user: user_1, business: business)
+      Checkin.create(user: user_2, business: business)
       Timecop.freeze(business.checkin_lock_time.ago + 1.hour) do
-        checkin_3 = Checkin.create(user: user_2, business: business)
+        Checkin.create(user: user_2, business: business)
 
         get "/businesses/#{business.id}/customers", unique: true
 
