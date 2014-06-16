@@ -317,8 +317,89 @@ curl -X GET
   http://localhost:9393/swagger_doc/businesses.json
 ```
 
-
 ### Checkins
+
+Create a checkin at `/checkins`
+
+```
+curl -X POST
+  --header 'Password: sosecret'
+  -d user_id=1
+  -d business_id=1
+  http://localhost:9393/checkins
+```
+
+**Response**
+
+```
+Status: 201 Created
+{
+  "data": {
+    "object_type": "checkin",
+    "id": "1",
+    "user_id": 1,
+    "business_id": 1
+  }
+}
+```
+
+Get a single checkin at `/checkins/:checkin`
+
+```
+curl -X GET
+  --header 'Password: tooninja'
+  http://localhost:9393/checkins/1
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": {
+    "object_type": "checkin",
+    "id": "1",
+    "user_id": 1,
+    "business_id": 1
+  }
+}
+```
+
+Get a list of checkins at `/checkins`
+
+```
+curl -X GET
+  --header 'Password: sosecret'
+  http://localhost:9393/checkins
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": [
+    {
+      "object_type": "checkin",
+      "id": "1",
+      "user_id": 1,
+      "business_id": 1
+    },
+    {
+      ...
+    },
+  ]
+}
+```
+
+You can get the most up to date documentation at the `/swagger_doc` endpoint:
+
+```
+curl -X GET
+  --header 'Password: sosecret'
+  http://localhost:9393/swagger_doc/checkins.json
+```
+
 
 ## TODO:
 - Add OAuth2 with something like [rack-oauth2](https://github.com/nov/rack-oauth2)
