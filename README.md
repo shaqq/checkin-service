@@ -22,6 +22,31 @@ shotgun
 
 This will run the check-in service at http://localhost:9393. Make sure to set your [`HEADER_PASSWORDS`](https://github.com/shaqq/checkin-service#security)
 
+And then try:
+
+1. Creating a User
+2. Creating a Business
+3. Checkin to the Business with the User
+
+### Models
+
+The Checkin Service has three models: [User](https://github.com/shaqq/checkin-service#users), [Business](https://github.com/shaqq/checkin-service#businesses), and a join model [Checkin](https://github.com/shaqq/checkin-service#checkins)
+
+A [User](https://github.com/shaqq/checkin-service#users) has three required attributes:
+- `name`
+- `email`
+- `password`
+And a password_confirmation is needed on creation.
+
+A [Business](https://github.com/shaqq/checkin-service#businesses) has one required attribute:
+- `name`
+
+It also has a notion of a `checkin_lock_time`. After a [User](https://github.com/shaqq/checkin-service#users) checks in, the [User](https://github.com/shaqq/checkin-service#users) can only checkin again after the `checkin_lock_time` has passed. This can be set on a per-business basis, or a default one can be set in the `CHECKIN_LOCK_TIME` env variable.
+
+A [Checkin](https://github.com/shaqq/checkin-service#checkins) has two required attributes:
+- `user_id`
+- `business_id`
+
 ### Security
 
 Currently, the check-in service uses [Napa's authentication middleware](https://github.com/bellycard/napa#authentication).
@@ -203,6 +228,7 @@ Status: 201 Created
     "object_type": "business",
     "id": "1",
     "name": "Run Dis Biz",
+    "checkin_lock_time": 60.0,
     "created_at": "2014-06-16 00:55:41 UTC"
   }
 }
@@ -225,6 +251,7 @@ Status: 200 OK
     "object_type": "business",
     "id": "1",
     "name": "Run Dis Biz",
+    "checkin_lock_time": 60.0,
     "created_at": "2014-06-16 00:55:41 UTC"
   }
 }
@@ -258,6 +285,37 @@ Status: 200 OK
 }
 ```
 
+Get a list of users that checked into the business at `/businesses/:business/customers`
+
+{"unique": true} gets a unique list of users
+
+```
+curl -X GET
+  --header 'Password: tooninja'
+  -d unique=true
+  http://localhost:9393/businesses/1/customers
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": [
+    {
+      "object_type": "user",
+      "id": "1",
+      "name": "Eric Clapton",
+      "email": "cream@gmail.com",
+      "created_at": "2014-06-16 00:55:41 UTC"
+    },
+    {
+      ... (other unique users)
+    }
+  ]
+}
+```
+
 
 Update a business at `/businesses/:business`
 
@@ -265,6 +323,7 @@ Update a business at `/businesses/:business`
 curl -X PUT
   --header 'Password: tooninja'
   -d name="Da Biz Haz Been Run"
+  -d checkin_lock_time=30.0
   http://localhost:9393/businesses/1
 ```
 
@@ -277,6 +336,7 @@ Status: 200 OK
     "object_type": "business",
     "id": "1",
     "name": "Da Biz Haz Been Run",
+    "checkin_lock_time": 30.0,
     "created_at": "2014-06-16 00:55:41 UTC"
   }
 }
@@ -300,6 +360,7 @@ Status: 200 OK
       "object_type": "business",
       "id": "1",
       "name": "Run Dis Biz",
+      "checkin_lock_time": 60.0,
       "created_at": "2014-06-16 00:55:41 UTC"
     },
     {
@@ -409,5 +470,3 @@ curl -X GET
 - Create a wiki page for each endpoint
 - Get checkins by datetime (See [#1](https://github.com/shaqq/checkin-service/pull/1))
 - Define `checkins` endpoint a little clearer
-- Writeup something about each model, and special things like /customers
-- Make emails unique
