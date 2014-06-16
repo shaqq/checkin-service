@@ -31,7 +31,7 @@ By setting `HEADER_PASSWORDS='sosecret,tooninja'` in your `.env` file, you'll be
 As the service grows, a system to manage API keys would need to be built.
 
 
-## Users
+### Users
 
 Create a user at `/users`
 
@@ -172,9 +172,9 @@ curl -X GET
   http://localhost:9393/swagger_doc/users.json
 ```
 
-## Businesses
+### Businesses
 
-## Checkins
+### Checkins
 
 ## Specs
 
