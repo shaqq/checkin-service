@@ -174,6 +174,139 @@ curl -X GET
 
 ### Businesses
 
+Create a business at `/businesses`
+
+```
+curl -X POST
+  --header 'Password: sosecret'
+  -d name='Run Dis Biz'
+  http://localhost:9393/businesses
+```
+
+**Response**
+
+```
+Status: 201 Created
+{
+  "data": {
+    "object_type": "business",
+    "id": "1",
+    "name": "Run Dis Biz",
+    "created_at": "2014-06-16 00:55:41 UTC"
+  }
+}
+```
+
+Get a single user at `/businesses/:business`
+
+```
+curl -X GET
+  --header 'Password: tooninja'
+  http://localhost:9393/businesses/1
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": {
+    "object_type": "business",
+    "id": "1",
+    "name": "Run Dis Biz",
+    "created_at": "2014-06-16 00:55:41 UTC"
+  }
+}
+```
+
+Get the business's checkins at `/businesses/:business/checkins`
+
+```
+curl -X GET
+  --header 'Password: tooninja'
+  http://localhost:9393/businesses/1/checkins
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": [
+    {
+      "object_type": "checkin",
+      "id": "1",
+      "user_id": 1,
+      "business_id": 1,
+      "created_at": "2014-06-16 00:55:41 UTC"
+    },
+    {
+      ...
+    }
+  ]
+}
+```
+
+
+Update a business at `/businesses/:business`
+
+```
+curl -X PUT
+  --header 'Password: tooninja'
+  -d name="Da Biz Haz Been Run"
+  http://localhost:9393/businesses/1
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": {
+    "object_type": "business",
+    "id": "1",
+    "name": "Da Biz Haz Been Run",
+    "created_at": "2014-06-16 00:55:41 UTC"
+  }
+}
+```
+
+Get a list of businesses at `/businesses`
+
+```
+curl -X GET
+  --header 'Password: sosecret'
+  http://localhost:9393/businesses
+```
+
+**Response**
+
+```
+Status: 200 OK
+{
+  "data": [
+    {
+      "object_type": "business",
+      "id": "1",
+      "name": "Run Dis Biz",
+      "created_at": "2014-06-16 00:55:41 UTC"
+    },
+    {
+      ...
+    },
+  ]
+}
+```
+
+You can get the most up to date documentation at the `/swagger_doc` endpoint:
+
+```
+curl -X GET
+  --header 'Password: sosecret'
+  http://localhost:9393/swagger_doc/businesses.json
+```
+
+
 ### Checkins
 
 ## Specs
