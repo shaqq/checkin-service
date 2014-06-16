@@ -197,7 +197,7 @@ Status: 201 Created
 }
 ```
 
-Get a single user at `/businesses/:business`
+Get a single business at `/businesses/:business`
 
 ```
 curl -X GET
