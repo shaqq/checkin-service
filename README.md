@@ -30,6 +30,17 @@ By setting `HEADER_PASSWORDS='sosecret,tooninja'` in your `.env` file, you'll be
 
 As the service grows, a system to manage API keys would need to be built.
 
+## Specs
+
+Setup your test environment and run your tests:
+
+```
+RACK_ENV=test rake db:create
+RACK_ENV=test rake db:migrate
+rspec spec
+```
+
+## API Documentation
 
 ### Users
 
@@ -308,16 +319,6 @@ curl -X GET
 
 
 ### Checkins
-
-## Specs
-
-Setup your test environment and run your tests:
-
-```
-RACK_ENV=test rake db:create
-RACK_ENV=test rake db:migrate
-rspec spec
-```
 
 ## TODO:
 - Add OAuth2 with something like [rack-oauth2](https://github.com/nov/rack-oauth2)
