@@ -22,7 +22,7 @@ shotgun
 
 This will run the check-in service at http://localhost:9393. Make sure to set your [`HEADER_PASSWORDS`](https://github.com/shaqq/checkin-service#security)
 
-## Security
+### Security
 
 Currently, the check-in service uses [Napa's authentication middleware](https://github.com/bellycard/napa#authentication).
 
@@ -30,7 +30,7 @@ By setting `HEADER_PASSWORDS='sosecret,tooninja'` in your `.env` file, you'll be
 
 As the service grows, a system to manage API keys would need to be built.
 
-## Specs
+### Specs
 
 Setup your test environment and run your tests:
 
