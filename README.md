@@ -409,3 +409,5 @@ curl -X GET
 - Create a wiki page for each endpoint
 - Get checkins by datetime (See [#1](https://github.com/shaqq/checkin-service/pull/1))
 - Define `checkins` endpoint a little clearer
+- Writeup something about each model, and special things like /customers
+- Make emails unique
