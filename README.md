@@ -24,9 +24,9 @@ This will run the check-in service at http://localhost:9393. Make sure to set yo
 
 And then try:
 
-1. Creating a User
-2. Creating a Business
-3. Checkin to the Business with the User
+1. [Creating a User](https://github.com/shaqq/checkin-service#users)
+2. [Creating a Business](https://github.com/shaqq/checkin-service#businesses)
+3. [Checkin to the Business with the User](https://github.com/shaqq/checkin-service#checkins)
 
 ### Models
 
