@@ -36,6 +36,7 @@ A [User](https://github.com/shaqq/checkin-service#users) has three required attr
 - `name`
 - `email`
 - `password`
+
 And a password_confirmation is needed on creation.
 
 A [Business](https://github.com/shaqq/checkin-service#businesses) has one required attribute:
