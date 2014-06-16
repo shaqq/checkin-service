@@ -64,10 +64,11 @@ describe BusinessesApi do
 
     it 'updates the business with a valid field' do
       business = FactoryGirl.create(:business)
-      put "/businesses/#{business.id}", name: 'Cupcakes and Shmupcakes'
+      put "/businesses/#{business.id}", name: 'Cupcakes and Shmupcakes', checkin_lock_time: 20.0
       response = JSON.parse(last_response.body)
       expect(last_response.status).to be 200
       expect(response['data']['name']).to eq 'Cupcakes and Shmupcakes'
+      expect(response['data']['checkin_lock_time']).to eq 20.0
     end
 
     it 'returns a not found error if there is no business' do

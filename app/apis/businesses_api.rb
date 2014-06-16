@@ -32,6 +32,7 @@ class BusinessesApi < Grape::API
     desc 'Update a business'
     params do
       optional :name, type: String, desc: 'Name of the business'
+      optional :checkin_lock_time, type: Float, desc: 'Checkin lock time'
     end
     put do
       # fetch business record and update attributes.  exceptions caught in app.rb
