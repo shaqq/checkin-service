@@ -2,7 +2,7 @@
 
 Creating a check-in service using Napa
 
-This is a check-in service that allows Users to check into a Business. Built with [Napa](https://github.com/bellycard/napa)
+This is a check-in service that allows Users to check into a Business. Built with [Napa](https://github.com/bellycard/napa).
 
 ## Setup
 
@@ -20,7 +20,7 @@ rake db:migrate
 shotgun
 ```
 
-This will run the check-in service at http://localhost:9393. Make sure to set your `HEADER_PASSWORDS`
+This will run the check-in service at http://localhost:9393. Make sure to set your [`HEADER_PASSWORDS`](https://github.com/shaqq/checkin-service#security)
 
 ## Security
 
