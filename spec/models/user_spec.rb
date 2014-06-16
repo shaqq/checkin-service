@@ -29,6 +29,12 @@ describe User do
       expect(user.valid?).to be false
     end
 
+    it 'is invalid if the email is not unique' do
+      user_1 = User.create(name: 'Tiny Dancer', email: 'watchthe@jimmyfallon.bit', password: 'JGL', password_confirmation: 'JGL')
+      user_2 = User.create(name: 'Larger Dancer', email: 'watchthe@jimmyfallon.bit', password: 'JGL', password_confirmation: 'JGL')
+      expect(user_2.valid?).to be false
+    end
+
   end
 
 end
