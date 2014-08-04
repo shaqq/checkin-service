@@ -20,7 +20,7 @@ rake db:migrate
 shotgun
 ```
 
-This will run the check-in service at http://localhost:9393. Make sure to set your [`HEADER_PASSWORDS`](https://github.com/shaqq/checkin-service#security)
+This will run the check-in service at http://localhost:9393. Make sure to set your [`HEADER_PASSWORDS`](#security)
 
 And then try:
 
