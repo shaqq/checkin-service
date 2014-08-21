@@ -120,6 +120,29 @@ describe UsersApi do
       }.to_json)
     end
 
+    it 'can list checkins within a date range' do
+      user = FactoryGirl.create(:user)
+      business = FactoryGirl.create(:business)
+      checkin_1 = Checkin.create(user: user, business: business)
+      Timecop.freeze(business.checkin_lock_time + 1.hour) do
+        Checkin.create(user: user, business: business)
+
+        get(
+          "/businesses/#{business.id}/checkins",
+          start_date: checkin_1.created_at - 1.day,
+          end_date: checkin_1.created_at + 1.minute
+        )
+
+        expect(last_response.status).to be 200
+        expect(last_response.body).to eq({
+          data: [
+            CheckinRepresenter.new(checkin_1)
+          ]
+        }.to_json)
+
+      end
+    end
+
   end
 
 end
